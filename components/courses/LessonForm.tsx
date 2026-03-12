@@ -1,7 +1,14 @@
-'use client';
-
-import { useState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { createLesson } from '@/app/auth/actions';
+
+function LessonSubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button type="submit" className="btn-primary" disabled={pending}>
+      {pending ? 'Saving...' : 'Add Lesson'}
+    </button>
+  );
+}
 
 export default function LessonForm({ courseId }: { courseId: string }) {
   const [videoMethod, setVideoMethod] = useState<'upload' | 'embed'>('upload');
@@ -81,9 +88,7 @@ export default function LessonForm({ courseId }: { courseId: string }) {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
-          <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Saving...' : 'Add Lesson'}
-          </button>
+          <LessonSubmitButton />
         </div>
       </form>
     </div>
