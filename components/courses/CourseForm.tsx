@@ -1,4 +1,21 @@
+'use client';
+
+import { useFormStatus } from 'react-dom';
 import { createCourse } from '@/app/auth/actions';
+
+function SubmitButton({ initialData }: { initialData?: any }) {
+  const { pending } = useFormStatus();
+  
+  return (
+    <button 
+      type="submit" 
+      className="btn-primary" 
+      disabled={pending}
+    >
+      {pending ? 'Saving...' : initialData ? 'Update Course' : 'Create Course'}
+    </button>
+  );
+}
 
 export default function CourseForm({ initialData }: { initialData?: any }) {
   return (
@@ -68,9 +85,7 @@ export default function CourseForm({ initialData }: { initialData?: any }) {
 
       <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
         <a href="/admin/courses" className="btn-secondary">Cancel</a>
-        <button type="submit" className="btn-primary" disabled={loading}>
-          {loading ? 'Saving...' : initialData ? 'Update Course' : 'Create Course'}
-        </button>
+        <SubmitButton initialData={initialData} />
       </div>
     </form>
   );
