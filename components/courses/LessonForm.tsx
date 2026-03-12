@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { createLesson } from '@/app/auth/actions';
 
